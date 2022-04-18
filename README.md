@@ -1,4 +1,4 @@
-# send-bulk-personalized-whatsapp
+# Whatsapp message sending bot
 This project can be used to send personalized whatsapp messages to multiple contacts within a very short period of time. This app can be used on MacOS and windows.
 
 ## MacOS
