@@ -1,7 +1,7 @@
 # Whatsapp message sending bot
 This project can be used to send personalized whatsapp messages to multiple contacts within a very short period of time. This app can be used on MacOS and windows.
 
-##Requirements:
+## Requirements:
 - File with contacts and variables like [number1.csv](https://github.com/pranv11/send-bulk-personalized-whatsapp/blob/main/number1.csv).
 - A file with text message and variables x1, x2, x3 where ever you want to switch the variables.
 
