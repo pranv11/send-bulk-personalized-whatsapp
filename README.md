@@ -3,7 +3,7 @@ This project can be used to send personalized whatsapp messages to multiple cont
 
 ## Requirements:
 - File with contacts and variables like [number1.csv](https://github.com/pranv11/send-bulk-personalized-whatsapp/blob/main/number1.csv).
-- A file with text message and variables x1, x2, x3 where ever you want to switch the variables.
+- A file with text message and variables x1, x2, x3 where ever you want to switch the variables like [message.txt](https://github.com/pranv11/send-bulk-personalized-whatsapp/blob/main/message.txt).
 
 ## MacOS
 - Install python by opening terminal and typing <code>brew install python </code>.
