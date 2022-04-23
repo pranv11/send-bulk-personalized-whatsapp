@@ -16,7 +16,7 @@ This project can be used to send personalized whatsapp messages to multiple cont
 - Once you have your contacts files and the message file in the computer, go to the terminal and type the following code:
 - <code> cd path/of/the/directory/with/code </code>.
 - <code> python3 send.py </code> or <code> python3 send.py </code>
-- if you get an erroe saying '“chromedriver” can’t be opened because Apple cannot check it for malicious software' just run the follwing command:<code>xattr -d com.apple.quarantine chromedriver</code>
+- If you get an error saying '“chromedriver” can’t be opened because Apple cannot check it for malicious software' just run the follwing command:<code>xattr -d com.apple.quarantine chromedriver</code>
 - These 2 lines of code will run the python code and then follow along with the questions that pop up.
 - Remember to add the path of the files requested and not just the names.
 
