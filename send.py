@@ -53,7 +53,7 @@ for i in range(len(numbers_from_csv)):
         user.send_keys(numbers_from_csv[i])
         user.send_keys(Keys.RETURN)
 
-        msg_box = driver.find_element_by_xpath('/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p')
+        msg_box = driver.find_element_by_xpath('/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
 
 
         msg_box.send_keys(z)
