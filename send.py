@@ -1,12 +1,13 @@
 from logging import exception
+import os
 import platform
 import random
 from selenium import webdriver
 import csv
 from selenium.webdriver.common.by   import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 import time
-import os.path
 import subprocess
 
 #
@@ -84,7 +85,13 @@ file.close()
 #
 # prepare whatsapp window
 #
-driver = webdriver.Chrome(executable_path= file_chromedriver)
+options = Options();
+if OSname=="Darwin" or OSname=="Linux": # MacOS/Unix
+    options.add_argument("user-data-dir=/tmp/whatsapp")
+elif OSname=="Windows": #Windows
+    options.add_argument("user-data-dir=" + os.environ['USERPROFILE'] + "\\AppData\\Local\\Google\\Chrome\\User Data") 
+
+driver = webdriver.Chrome(executable_path= file_chromedriver, chrome_options=options)
 driver.get('https://web.whatsapp.com/')
 
 input('Press enter after scanning QR code')
@@ -129,5 +136,5 @@ for i in range(len(whatsappnumber_from_csv)):
         time.sleep(random.randint(1,4))
         print ('Message sent successfully for ' + whatsappnumber_from_csv[i])
     except:
-        print ('error raised while sending message for ' + whatsappnumber_from_csv[i])
-driver.close()
+        print ('Error raised while sending message for ' + whatsappnumber_from_csv[i])
+driver.quit()
