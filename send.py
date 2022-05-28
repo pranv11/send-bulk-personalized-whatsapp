@@ -1,4 +1,5 @@
 from logging import exception
+import platform
 import random
 from selenium import webdriver
 import csv
@@ -9,9 +10,13 @@ import os.path
 import subprocess
 
 #
-# get current directory
+# get current directory per OS
 #
-pwd=subprocess.getoutput('pwd')
+OSname=platform.system()
+if OSname=="Darwin" or OSname=="Linux": # MacOS/Unix
+    pwd=subprocess.getoutput('pwd')
+elif OSname=="Windows":
+    pwd=subprocess.getoutput('cd') 
 
 #
 # validate existence of chromedriver
