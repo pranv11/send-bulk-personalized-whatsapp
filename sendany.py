@@ -1,8 +1,10 @@
 from logging import exception
+import logging
 import os
 import platform
 import random
 import sys
+from tkinter import W
 from selenium import webdriver
 import csv
 from selenium.webdriver.common.by   import By
@@ -189,9 +191,26 @@ for i in range(len(whatsappnumber_from_csv)):
         #
         if os.path.exists(errorfilename) == False: 
             errorfile = open(errorfilename, "w")
-
-        errormesg = 'Error raised while sending message for ' + whatsappnumber_from_csv[i]
-        print (errormesg); 
+        
+        #
+        # construct an errormessage that replicates the current numbers.csv row 
+        #`
+        errormesg = whatsappnumber_from_csv[i]
+        if index_exists(var1_from_csv, i): errormesg = errormesg + ',' + var1_from_csv[i]
+        if index_exists(var2_from_csv, i): errormesg = errormesg + ',' + var2_from_csv[i]
+        if index_exists(var3_from_csv, i): errormesg = errormesg + ',' + var3_from_csv[i]
+        errormesg = errormesg + '\n'
+        
+        #
+        #  print the detailed error stack
+        #
+        logging.exception ('Could not send message to ' + errormesg); 
+        #
+        # You can rename the error file as <anyfile>.csv and re-run the program another time with -n <anyfile>.csv
+        # Usually, you should expect some whatsapp numbers to not go through the first time
+        # This way you can keep trying sending to the unsent numbers till you are left with 
+        # numbers that are not registered with Whatsapp at all
+        #
         errorfile.write(errormesg)
 
 # 
