@@ -11,13 +11,15 @@ from selenium.webdriver.chrome.options import Options
 import time
 import subprocess
 import argparse
+import datetime; 
 
-
-print('')
+print('\n')
 print("make sure you format the csv file if downloaded from Google sheets")
 print("dos2unix contacts.csv")
-print("awk -F',' '{split($1,a,' '); print $2, a[1]}' contacts.csv")
-print('')
+print('Use this awk script:')
+print("BEGIN { FS=\",\"; OFS=\",\"; }")
+print("{ split($1,a,\" \"); print $2, a[1]\" ji\"; }")
+print('\n')
 
 #
 # parse arguments of the main program
@@ -49,13 +51,15 @@ try:
     if OSname=="Darwin" or OSname=="Linux": # MacOS/Unix
         pwd=subprocess.getoutput('pwd')
         delim='/'
+        extension=''
     elif OSname=="Windows":
         pwd=subprocess.getoutput('cd') 
         delim='\\'
+        extension='.exe'
     #
     # construct the full path to chromedriver
     #
-    file_chromedriver = pwd + delim + args.chromedriver
+    file_chromedriver = pwd + delim + args.chromedriver + extension
 
     if os.path.exists(file_chromedriver) == False: 
         print ('Chromedriver does not exist')
@@ -129,6 +133,14 @@ driver = webdriver.Chrome(executable_path= file_chromedriver, options=options)
 with open(file_msg, 'r') as file:
    message = file.read()
 
+# store current time
+tstamp = str(datetime.datetime.now())
+tstamp = tstamp.replace(' ','_')
+#
+# construct filename for storing execution errors
+#
+errorfilename="sendany.py." + tstamp + ".err"
+
 #
 # Loop through each whatsapp number and substitute the variable values into the message tokens
 #
@@ -153,7 +165,7 @@ for i in range(len(whatsappnumber_from_csv)):
         #
         # wait for the page to load, it can take a while sometimes
         #
-        time.sleep(7)
+        time.sleep(random.randint(7,10))
         #
         # Enter the message with substituted tokens into the chrome window
         # The xpath value will keep changing as whatsapp evolves. It has to be tested once in a while.
@@ -172,5 +184,19 @@ for i in range(len(whatsappnumber_from_csv)):
         time.sleep(random.randint(1,4))
         print ('Message sent successfully for ' + whatsappnumber_from_csv[i])
     except:
-        print ('Error raised while sending message for ' + whatsappnumber_from_csv[i])
+        #
+        #  if the error file does not exist create it for the first time
+        #
+        if os.path.exists(errorfilename) == False: 
+            errorfile = open(errorfilename, "w")
+
+        errormesg = 'Error raised while sending message for ' + whatsappnumber_from_csv[i]
+        print (errormesg); 
+        errorfile.write(errormesg)
+
+# 
+# if error file exists, close it
+#
+if os.path.exists(errorfilename) == True:
+    errorfile.close()
 driver.quit()
